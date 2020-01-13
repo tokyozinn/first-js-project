@@ -10,6 +10,7 @@ for (var i = 0; i < pacientes.length; i++){
     var peso = tdPeso.textContent;
     var tdAltura = paciente.querySelector(".info-altura");
     var altura = tdAltura.textContent;
+    var tdImc = paciente.querySelector(".info-imc");
 
     var pesoEhValido = true;
     var alturaEhValida = true;
@@ -27,8 +28,12 @@ for (var i = 0; i < pacientes.length; i++){
     }
 
     if (pesoEhValido && alturaEhValida){
-    var imc = peso / (altura * altura);
-    var tdImc = paciente.querySelector(".info-imc");
-    tdImc.textContent = imc.toFixed(2);
+    tdImc.textContent = calculaImc(peso, altura);
     }
+}
+
+function calculaImc(peso, altura){
+    var imc = 0;
+    imc = peso / (altura * altura);
+    return imc.toFixed(2);
 }
