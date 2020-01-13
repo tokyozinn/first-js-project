@@ -14,4 +14,9 @@ tdImc.textContent = imc;
 if (peso < 10 || peso > 250){
     tdPeso.textContent = "Peso inválido";
     tdImc.textContent = "Erro nos dados fornecidos";
-}  
+}
+
+if (altura < 0 || altura > 2){
+    tdAltura.textContent = "Altura inválida";
+    tdImc.textContent = "Erro nos dados fornecidos";
+}
