@@ -4,16 +4,21 @@ botaoAdiciona.addEventListener("click", function(event){
     event.preventDefault();
 
     var form = document.querySelector("#form-adiciona");
-
     var paciente = obterPacienteForm(form);
-
     var pacienteTr = criaTr(paciente);    
-    
-    var tabela = document.querySelector("#tabela-pacientes");
 
-    tabela.appendChild(pacienteTr);
+    var erros = validaPaciente(paciente);
 
-    form.reset();
+    listaErros = document.querySelector("#mensagem-erro");
+    listaErros.innerHTML = ""
+
+    if (erros.length > 0) {
+        exibeMensagemErro(erros);
+    } else {
+        var tabela = document.querySelector("#tabela-pacientes");
+        tabela.appendChild(pacienteTr);
+        form.reset();
+    }
 });
 
 function obterPacienteForm(form){
@@ -46,4 +51,27 @@ function criaTd(dado, classe) {
     td.classList.add(classe);
 
     return td;
+}
+
+function validaPaciente(paciente){
+    var erros = []
+
+    if (!validaAltura(paciente.altura)) erros.push("Altura inválida!");
+    if (!validaPeso(paciente.peso)) erros.push("Peso inválido!")
+    if (paciente.nome.length == 0) erros.push("Nome não pode estar em branco");
+    if (paciente.altura.length == 0) erros.push("Altura não pode estar em branco");
+    if (paciente.peso.length == 0) erros.push("Peso não pode estar em branco");
+    if (paciente.gordura.length == 0) erros.push("Gordura não pode estar em branco");
+    
+    return erros;
+}
+
+function exibeMensagemErro(erros){
+    for (var i = 0; i < erros.length; i++){
+        var msg = erros[i];
+        var erro = document.createElement("li");
+        erro.textContent = msg;
+        
+        listaErros.appendChild(erro);
+    }
 }
